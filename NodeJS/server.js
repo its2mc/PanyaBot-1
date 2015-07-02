@@ -22,7 +22,13 @@ app.use(express.static(path.join(__dirname, '/static')));
 
 var peripheralUuid = process.argv[2];
 
-
+noble.on('stateChange', function(state) {
+  	if (state === 'poweredOn') {
+    	noble.startScanning();
+	} else {
+		noble.stopScanning();
+	}
+});
 
 noble.on('discover', function(peripheral) {
  // if (peripheral.uuid === peripheralUuid) {
@@ -172,13 +178,7 @@ function explore(peripheral) {
 //Discover Devices
 app.get('/discover', function(req,res){
 	sse.init(req,res);
-	noble.on('stateChange', function(state) {
-  		if (state === 'poweredOn') {
-    		noble.startScanning();
-		} else {
-		    noble.stopScanning();
-		}
-	});
+	sse.send("Hey");
 });//Receive Discover 
 
 
