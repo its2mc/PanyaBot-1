@@ -33,7 +33,7 @@ noble.on('stateChange', function(state) {
 noble.on('discover', function(peripheral) {
  // if (peripheral.uuid === peripheralUuid) {
  //   noble.stopScanning();
- 	noble.startScanning();
+
 
     console.log('peripheral with UUID ' + peripheralUuid + ' found');
     var advertisement = peripheral.advertisement;
@@ -179,7 +179,13 @@ function explore(peripheral) {
 //Discover Devices
 app.get('/discover', function(req,res){
 	sse.init(req,res);
-	sse.send("Hey");
+	sse.send("Starting Scan");
+	try{
+		noble.startScanning();
+	}
+	catch(e){
+		sse.send(e);
+	}
 });//Receive Discover 
 
 
