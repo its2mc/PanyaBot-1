@@ -33,6 +33,7 @@ noble.on('stateChange', function(state) {
 noble.on('discover', function(peripheral) {
  // if (peripheral.uuid === peripheralUuid) {
  //   noble.stopScanning();
+ 	noble.startScanning();
 
     console.log('peripheral with UUID ' + peripheralUuid + ' found');
     var advertisement = peripheral.advertisement;
