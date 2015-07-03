@@ -55,7 +55,7 @@ We envision it as a low cost educational tool and have made it so using recycled
 						<article>
 							<h3>Software</h3>
 							<p><a href="#">What is Blockly?</a></p>
-							<p><a href="#">How is RPI talking to my PanyaBot?</a></p>
+							<p><a href="#">How Cheese Station talking to my PanyaBot?</a></p>
 							<p><a href="#">How do I add sensors and stuff to PanyaBot?</a></p>
 							<!-- <img src="images/chassis.jpg" alt="chassis" style="display:block; max-width: 50%; margin-left:auto; margin-right:auto;" class = "round" /> -->
 						</article>
@@ -111,7 +111,10 @@ We envision it as a low cost educational tool and have made it so using recycled
 		<script>
 			$(function() {
 				Boxlayout.init();
-
+				$.get( "http://localhost:500/discoverDevices", function( data ) {
+				  $( ".result" ).html( data );
+				  alert( "Load was performed." );
+				});
 				
 			});
 		</script>
