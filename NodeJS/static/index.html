@@ -111,10 +111,18 @@ We envision it as a low cost educational tool and have made it so using recycled
 		<script>
 			$(function() {
 				Boxlayout.init();
-				$.get( "http://localhost:500/discoverDevices", function( data ) {
-				  $( ".result" ).html( data );
-				  alert( "Load was performed." );
+				$("#searchDevices").click(function(){
+					if(typeof(EventSource) !== "undefined") {
+						var source = new EventSource("http://localhost:8082/discover");
+						source.onmessage = function(event) {
+							var txt = "<li>"+event.data+"</li>";
+							$("#panyaList").append(txt);
+						};
+					} else {
+					    console.log("SSE not supported.. bia");
+					}
 				});
+				
 				
 			});
 		</script>
