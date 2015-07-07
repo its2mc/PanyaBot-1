@@ -8,6 +8,7 @@ noble = require('noble'),
 path = require('path'),
 SSE = require('express-sse'),
 async = require('async'),
+btSerial = new (require('bluetooth-serial-port')).BluetoothSerialPort(),
 sse = new SSE(["array", "containing", "initial", "content", "(optional)"]),
 httpsPort = 8082,
 app = express(),
@@ -22,20 +23,25 @@ app.use(express.static(path.join(__dirname, '/static')));
 
 var peripheralUuid = process.argv[2];
 
-noble.startScanning();
- 
-noble.on('discover', function(peripheral) { 
-		 
-	var macAddress = peripheral.uuid;
-	var rss = peripheral.rssi;
-	var localName = advertisement.localName; 
-	console.log('found device: ', macAdress, ' ', localName, ' ', rss);
-	sse.send('found device: ', macAdress, ' ', localName, ' ', rss);   
-}
+btSerial.on('found', function(address, name) {
+	console.log('Found a device: ' +address);
+    sse.send('Found a device: ' +address);
+});
+
+btSerial.on('close', function() {
+	console.log('connection has been closed (remotely?)');
+	sse.send('connection has been closed (remotely?)');
+});
+
+btSerial.on('finished', function() {
+	console.log('scan did finish');
+	sse.send('connection has been closed (remotely?)');
+});
 
 //Discover Devices
 app.get('/discover', function(req,res){
 	sse.init(req,res);
+	btSerial.inquire();
 	sse.send("Starting Scan");
 });//Receive Discover 
 
