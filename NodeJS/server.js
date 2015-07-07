@@ -41,8 +41,8 @@ btSerial.on('finished', function() {
 //Discover Devices
 app.get('/discover', function(req,res){
 	sse.init(req,res);
-	btSerial.inquire();
 	sse.send("Starting Scan");
+	btSerial.inquire();
 });//Receive Discover 
 
 
