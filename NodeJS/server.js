@@ -43,14 +43,14 @@ app.get('/discover', function(req,res){
 
 // POST method template .. used for database access
 // Supports larger info flows
-app.post('/', function (req, res) {
+/*app.post('/', function (req, res) {
   res.send('POST request to the homepage');
 });
 
 //Get
 app.get('/', function (req, res) {
   res.send('GET request to the homepage');
-});//Load chang
+});//Load chang */
 
 //Database Access Routing
 
