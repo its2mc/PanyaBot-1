@@ -35,7 +35,7 @@ btSerial.on('close', function() {
 
 btSerial.on('finished', function() {
 	console.log('scan did finish');
-	sse.send('connection has been closed (remotely?)');
+	sse.send('scan did finish');
 });
 
 //Discover Devices
