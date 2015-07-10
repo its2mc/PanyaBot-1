@@ -24,8 +24,8 @@ app.use(express.static(path.join(__dirname, '/static')));
 var peripheralUuid = process.argv[2];
 
 btSerial.on('found', function(address, name) {
-	console.log('Found a device: ' +address);
-    sse.send('Found a device: ' +address);
+	console.log('Found a device: ' +address + '. With Name: '+ name);
+    sse.send('Found a device: ' +address + '. With Name: '+ name);
 });
 
 btSerial.on('close', function() {
