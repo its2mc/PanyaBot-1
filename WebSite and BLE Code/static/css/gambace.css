@@ -1,0 +1,5 @@
+@CHARSET "UTF-8";
+
+.jumbotron{
+	 background-image: url("res/images/banner.jpg");
+}

@@ -81,7 +81,7 @@ We envision it as a low cost educational tool and have made it so using recycled
 						<h2>Play</h2>
 						<article>
 							<h3>Where's PanyaBot?</h3>
-							<p><input id="searchDevices" type="button" value="List Active Devices"/></p>
+							<p><input id="searchDevices" type="button" value="List Active Devices" class="btn button"/></p>
 							<u id="panyaList"></u>
 						</article>
 						
@@ -99,28 +99,26 @@ We envision it as a low cost educational tool and have made it so using recycled
 							<h3>Gambace</h3>
 							<p>//Image to be placed here</p>
 							<p>A basic racing game with a twist. Compete with your friends to find out who is the luckiest. The one who gets the luckiest number wins the race. Try it out.</p>
-							<p><a href="#">Play</a></p>
+							<p><a href="gambace.html">Play</a></p>
 						</article>
 					</div>
 					<span class="bl-icon bl-icon-close"></span>
 				</section>
 			</div>
 		</div><!-- /container -->
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+		<script src="js/jquery.min.js"></script>
 		<script src="js/boxlayout.js"></script>
 		<script>
 			$(function() {
 				Boxlayout.init();
 				$("#searchDevices").click(function(){
-					if(typeof(EventSource) !== "undefined") {
-						var source = new EventSource("http://localhost:8082/discover");
-						source.onmessage = function(event) {
-							var txt = "<li>"+event.data+"</li>";
-							$("#panyaList").append(txt);
-						};
-					} else {
-					    console.log("SSE not supported.. bia");
-					}
+					$.ajax({
+						url: "http://localhost:5000/discoverDevices",
+					})
+					.done(function( data ) {
+						var txt = "<li>"+data+"</li>";
+						$("#panyaList").append(txt);
+					});
 				});
 				
 				
